@@ -28,13 +28,13 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'number_verified'])->name('dashboard');
 
 Route::get('/userpage', function () {
     return Inertia::render('User');
-})->middleware(['auth', 'verified'])->name('user');
+})->middleware(['auth', 'number_verified', 'verified'])->name('user');
 
-Route::get('/user', [UserController::class, 'User'])->middleware(['auth', 'verified']);
+Route::get('/user', [UserController::class, 'User']);
 
 Route::get('/verify', [VerifyController::class, 'getVerify'])->name('getverify');
 Route::post('/verify', [VerifyController::class, 'postVerify'])->name('verify');

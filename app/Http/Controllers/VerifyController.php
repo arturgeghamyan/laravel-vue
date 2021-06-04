@@ -19,9 +19,9 @@ class VerifyController extends Controller
              $user->active = 1;
              $user->code = null;
              $user->save();
-             return redirect()->route('login')->withMessage('Your account is active');
+             return redirect()->route('login');
          } else {
-             return back()->with('Verify code is not correct');
+             return back()->withErrors('Verify code is not correct',);
          }
      }
 }
