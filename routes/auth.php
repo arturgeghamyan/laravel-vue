@@ -24,6 +24,13 @@ Route::get('/login', [AuthenticatedSessionController::class, 'create'])
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
                 ->middleware('guest');
 
+/// Login With Socialete
+Route::get('login/{provider}', [AuthenticatedSessionController::class, 'redirectToProvider'])
+    ->middleware('guest');
+
+Route::get('login/{provider}/callback', [AuthenticatedSessionController::class, 'handleProviderCallback'])
+    ->middleware('guest');
+
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->middleware('guest')
                 ->name('password.request');
