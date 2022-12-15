@@ -8,21 +8,21 @@
                         <div class="flex">
                             <!-- Logo -->
                             <div class="flex-shrink-0 flex items-center">
-                                <inertia-link :href="route('dashboard')">
+                                <inertia-link :href="route('tickets')">
                                     <breeze-application-logo class="block h-9 w-auto" />
                                 </inertia-link>
                             </div>
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <breeze-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
+                                <breeze-nav-link :href="route('tickets')" :active="route().current('tickets')">
+                                    Tickets
                                 </breeze-nav-link>
                             </div>
 
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <breeze-nav-link :href="route('user')" :active="route().current('user')">
-                                    User
+                                <breeze-nav-link :href="route('shared')" :active="route().current('shared')">
+                                    Shared with me
                                 </breeze-nav-link>
                             </div>
 
@@ -69,14 +69,14 @@
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <breeze-responsive-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
-                            Dashboard
+                        <breeze-responsive-nav-link :href="route('tickets')" :active="route().current('tickets')">
+                            Tickets
                         </breeze-responsive-nav-link>
                     </div>
 
                     <div class="pt-2 pb-3 space-y-1">
-                        <breeze-responsive-nav-link :href="route('user')" :active="route().current('user')">
-                            User
+                        <breeze-responsive-nav-link :href="route('shared')" :active="route().current('shared')">
+                            Shared with me
                         </breeze-responsive-nav-link>
                     </div>
 

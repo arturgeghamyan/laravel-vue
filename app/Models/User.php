@@ -19,9 +19,6 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'name',
         'surname',
-        'phone',
-        'code',
-        'active',
         'email',
         'password',
     ];
@@ -44,4 +41,14 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class, 'owner_id');
+    }
+
+    public function sharedTickets()
+    {
+        return $this->belongsToMany(Ticket::class, 'ticket_users');
+    }
 }

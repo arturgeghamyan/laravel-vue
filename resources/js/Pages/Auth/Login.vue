@@ -16,17 +16,6 @@
             <breeze-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="current-password" />
         </div>
 
-        <p class="text-center">OR</p>
-        <div class="flex row justify-between ">
-            <a href="login/google" class="ml-4 bg-blue-900 text-white rounded-md" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                Log in With Google
-            </a>
-
-            <a href="login/facebook" class="ml-4 bg-blue-900 text-white rounded-md" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                Log in With Facebook
-            </a>
-        </div>
-
         <div class="block mt-4">
             <label class="flex items-center">
                 <breeze-checkbox name="remember" v-model:checked="form.remember" />

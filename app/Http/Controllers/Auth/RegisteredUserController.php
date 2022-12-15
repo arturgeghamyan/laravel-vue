@@ -50,13 +50,10 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'surname' => $request->surname,
             'email' => $request->email,
-            'phone' => $request->phone,
-            'active' => 0,
             'password' => Hash::make($request->password),
         ]);
 
         if ($user) {
-            $user->code = SendCode::sendCode($user->phone);
             $user->save();
         }
 

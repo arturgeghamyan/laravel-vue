@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\VerifyController;
+use App\Http\Controllers\TicketsController;
+use App\Http\Controllers\ShareController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,17 +26,16 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified', 'number_verified'])->name('dashboard');
+Route::get('/tickets', [TicketsController::class, 'index'])->middleware(['auth', 'verified'])->name('tickets');
+Route::get('/get-tickets', [TicketsController::class, 'getTickets'])->middleware(['auth', 'verified'])->name('getTickets');
+Route::get('/get-ticket', [TicketsController::class, 'show'])->middleware(['auth', 'verified'])->name('getTicket');
+Route::post('/tickets', [TicketsController::class, 'store'])->middleware(['auth', 'verified'])->name('ticketCreate');
+Route::put('/tickets', [TicketsController::class, 'update'])->middleware(['auth', 'verified'])->name('ticketUpdate');
+Route::delete('/tickets', [TicketsController::class, 'destroy'])->middleware(['auth', 'verified'])->name('ticketDelete');
 
-Route::get('/userpage', function () {
-    return Inertia::render('User');
-})->middleware(['auth', 'number_verified', 'verified'])->name('user');
+Route::post('/tickets-share', [TicketsController::class, 'share'])->middleware(['auth', 'verified'])->name('ticketShare');
 
-Route::get('/user', [UserController::class, 'User']);
+Route::get('/shared', [ShareController::class, 'index'])->middleware(['auth', 'verified'])->name('shared');
 
-Route::get('/verify', [VerifyController::class, 'getVerify'])->name('getverify');
-Route::post('/verify', [VerifyController::class, 'postVerify'])->name('verify');
 
 require __DIR__.'/auth.php';

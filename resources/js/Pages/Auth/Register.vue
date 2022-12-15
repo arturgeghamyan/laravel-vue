@@ -12,11 +12,6 @@
             <breeze-input id="surname" type="text" class="mt-1 block w-full" v-model="form.surname" required autofocus autocomplete="surname" />
         </div>
 
-        <div>
-            <breeze-label for="phone" value="Phone Number" />
-            <breeze-input id="phone" type="text" class="mt-1 block w-full" v-model="form.phone" required autofocus autocomplete="phone_number" />
-        </div>
-
         <div class="mt-4">
             <breeze-label for="email" value="Email" />
             <breeze-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autocomplete="username" />
@@ -37,7 +32,7 @@
                 Already registered?
             </inertia-link>
 
-            <breeze-button class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+            <breeze-button class="ml-4">
                 Register
             </breeze-button>
         </div>
