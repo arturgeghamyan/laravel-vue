@@ -71,13 +71,15 @@
               </table>
             </div>
 
-            <div v-else class="text-center">There are no tickets available.</div>
+            <div v-else class="text-center">
+              There are no tickets available.
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="overlay" v-if="showModal" @click="showModal = false"></div>
-    <Modal :showModal="showModal" v-if="showModal">
+    <div class="overlay" v-if="showModal" @click="closeModal"></div>
+    <Modal :showModal="showModal" v-if="showModal" @close="closeModal">
       <div v-if="ticket">
         <div>Name {{ ticket.name }}</div>
         <div>body {{ ticket.description }}</div>
@@ -120,6 +122,9 @@ export default {
     openModal(ticket) {
       this.showModal = true;
       this.ticket = ticket;
+    },
+    closeModal() {
+      this.showModal = false;
     },
   },
 };

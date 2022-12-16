@@ -1,6 +1,6 @@
 <template>
   <div class="modal">
-    <button class="close" @click="showModal = false">x</button>
+    <button class="close" @click="$emit('close')">x</button>
     <div class="body">
         <slot />
     </div>
@@ -24,7 +24,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  width: 300px;
+  width: 350px;
   height:200px;
   z-index: 9999;
   margin: auto;

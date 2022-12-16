@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TicketRequest;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -39,13 +40,14 @@ class TicketsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TicketRequest $request)
     {
-        $ticket = Ticket::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'owner_id' => auth()->user()->id
-        ]);
+
+        $validate = $request->all();
+
+        $validate['owner_id'] = auth()->user()->id;
+
+        $ticket = Ticket::create($validate);
 
         $ticket->save();
 
@@ -71,7 +73,7 @@ class TicketsController extends Controller
      * @param  \App\Models\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(TicketRequest $request)
     {
 
         $ticket = Ticket::find($request->id);

@@ -104,14 +104,15 @@
                 <div
                   class="overlay"
                   v-if="showModal"
-                  @click="showModal = false"
+                  @click="closeModal"
                 ></div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <Modal :showModal="showModal" v-if="showModal">
+      <Modal :showModal="showModal" v-if="showModal" @close="closeModal">
+        <BreezeValidationErrors />
         <div v-if="type === 'create' || type === 'update'">
           <form @submit.prevent="submit">
             <div class="border-black">
@@ -142,9 +143,9 @@
         <div v-if="type === 'share'">
           <form @submit.prevent="share">
             <ul class="flex">
-              <li v-for="user in users" :key="user.id" class="flex">
+              <li v-for="user in sharedUsers" :key="user.id" class="flex">
                 <input type="checkbox" @input="select(user.id)" />
-                <span>{{user.name}}</span>
+                <span>{{ user.name }}</span>
               </li>
             </ul>
             <breeze-button
@@ -187,6 +188,8 @@
 
 <script>
 import BreezeAuthenticatedLayout from "@/Layouts/Authenticated";
+import BreezeValidationErrors from "@/Components/ValidationErrors";
+
 import BreezeButton from "@/Components/Button";
 import BreezeInput from "@/Components/Input";
 import Modal from "@/Components/Modal";
@@ -194,6 +197,7 @@ import Modal from "@/Components/Modal";
 export default {
   components: {
     BreezeAuthenticatedLayout,
+    BreezeValidationErrors,
     BreezeButton,
     BreezeInput,
     Modal,
@@ -221,6 +225,12 @@ export default {
     status: String,
   },
 
+  computed: {
+    sharedUsers() {
+        return this.users.filter(user => user.id !== this.auth.user.id) 
+    }
+  },
+
   mounted() {
     this.getTickets();
   },
@@ -229,7 +239,7 @@ export default {
     submit() {
       if (this.type === "create") {
         this.form.post(this.route("ticketCreate"), {
-          onFinish: () => {
+          onSuccess: () => {
             this.showModal = false;
             this.form.reset();
             this.getTickets();
@@ -237,7 +247,7 @@ export default {
         });
       } else {
         this.form.put(this.route("ticketUpdate"), {
-          onFinish: () => {
+          onSuccess: () => {
             this.showModal = false;
             this.form.reset();
             this.getTickets();
@@ -282,6 +292,11 @@ export default {
           this.ticket = r.data;
         });
       }
+    },
+
+    closeModal() {
+        this.$page.props.errors = {}
+        this.showModal = false;
     },
 
     deleteTicket(id) {
